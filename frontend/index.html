@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NOVACAL</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+</head>
+<body>
+    <div id="app">
+        <div id="left-container">
+            <h1>NOVACAL</h1>
+            
+            <div class="top-buttons">
+                <button id="uncheck-all">Uncheck All</button>
+                <button id="select-folder">Select Folder</button>
+            </div>
+
+            <div id="item-list"></div>
+
+            <div class="button-container">
+                <button id="calibrate">Calibrate</button>
+                <button id="plot">Plot</button>
+                <button id="clear-plots">Clear Plots</button>
+            </div>
+        </div>
+
+        <div id="left-container-resizer"></div>
+
+        <div id="right-container">
+            <div id="plot-container">
+                <div id="amplitude-plot" class="plot"></div>
+                <div id="phase-plot" class="plot"></div>
+                <div id="timeseries-plot" class="plot"></div>
+            </div>
+        </div>
+
+        <div id="calibration-window" class="resizable">
+            <div class="resizable-handle top-left"></div>
+            <div class="resizable-handle top-right"></div>
+            <div class="resizable-handle bottom-left"></div>
+            <div class="resizable-handle bottom-right"></div>
+            <div id="calibration-content">
+                <h2>Calibration</h2>
+                <table id="calibration-table">
+                    <thead>
+                        <tr>
+                            <th>Station</th>
+                            <th>Waveform</th>
+                            <th>Frequency (Hz)</th>
+                            <th>Tx</th>
+                            <th>Rx</th>
+                            <th>Coil</th>
+                        </tr>
+                    </thead>
+                    <tbody id="calibration-items"></tbody>
+                </table>
+                <div id="calibration-progress-container">
+                    <div id="calibration-progress-bar"></div>
+                </div>
+                <div id="calibration-status">Starting calibration...</div>
+                <div id="calibration-buttons">
+                    <button id="import-settings">Import Settings</button>
+                    <button id="run-calibration">Run Calibration</button>
+                    <button id="export-results">Export results to CSV</button>
+                    <button id="close-calibration">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="renderer.js"></script>
+</body>
+</html>
