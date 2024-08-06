@@ -31,7 +31,7 @@ OR
 
 1. Clone the repository:
    ```
-   git clone https://github.com/your-username/novacal.git
+   git clone https://github.com/anthonyznova/novacal.git
    ```
 
 2. Navigate to the project directory:
