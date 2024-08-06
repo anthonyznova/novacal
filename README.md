@@ -6,6 +6,8 @@
 NOVACAL is an Electron application with a Go backend, designed to be able to quickly load and plot timeseries data and perform calibrations on data collected with novaminex instruments. 
 
 ![Nova Toolkit Logo](frontend/assets/novacal.png)
+![Nova Toolkit Logo](frontend/assets/calibrationwindow.png)
+![Nova Toolkit Logo](frontend/assets/calibrationresults.png)
 
 ## ✨ Features
 
