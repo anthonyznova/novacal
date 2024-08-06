@@ -22,11 +22,6 @@ NOVACAL is an Electron application with a Go backend, designed to be able to qui
 
 ## Getting Started
 
-### Prerequisites
-
-- Node.js (v14+)
-- Go (v1.16+)
-- Electron (v13+)
 
 ### Installation
 
