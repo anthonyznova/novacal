@@ -1,0 +1,7 @@
+Copyright (c) 2024 Your Company
+
+All rights reserved.
+
+The software and associated documentation files are proprietary and confidential.
+Unauthorized copying, distribution, or modification of this software, via any medium,
+is strictly prohibited. 

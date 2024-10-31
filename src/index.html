@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NOVACAL</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" type="image/x-icon" href="../assets/icon.ico">
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+</head>
+<body>
+    <div class="titlebar">
+        <div class="titlebar-drag-region"></div>
+        <div class="window-controls">
+            <button class="minimize-button">─</button>
+            <button class="maximize-button">□</button>
+            <button class="close-button">×</button>
+        </div>
+    </div>
+    <div id="app">
+        <div id="left-container">
+            <div class="header">
+                <img src="../assets/icon.ico" alt="NOVACAL" class="header-icon">
+                <h1>NOVACAL</h1>
+            </div>
+            
+            <div class="top-buttons">
+                <button id="uncheck-all">Uncheck All</button>
+                <button id="select-folder">Select Folder</button>
+            </div>
+
+            <div id="item-list"></div>
+
+            <div class="button-container">
+                <button id="calibrate">Calibrate</button>
+                <button id="plot">Plot</button>
+                <button id="fir">FIR</button>
+                <button id="clear-plots">Clear Plots</button>
+            </div>
+        </div>
+
+        <div id="left-container-resizer"></div>
+
+        <div id="right-container">
+            <div id="plot-container">
+                <div id="timeseries-plot" class="plot"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add this after the app div -->
+    <div id="calibration-window" style="display: none;">
+        <h2>Calibration</h2>
+        <div class="calibration-table-container">
+            <table id="calibration-table">
+                <thead>
+                    <tr>
+                        <th>Station</th>
+                        <th>Waveform</th>
+                        <th>Frequency (Hz)</th>
+                        <th>Tx</th>
+                        <th>Rx</th>
+                        <th>Coil</th>
+                    </tr>
+                </thead>
+                <tbody id="calibration-items">
+                </tbody>
+            </table>
+        </div>
+        <div class="calibration-controls">
+            <div class="progress-bar-container">
+                <div id="calibration-progress-bar"></div>
+            </div>
+            <div id="calibration-status"></div>
+            <button id="import-from-config">Import From Config</button>
+            <button id="run-calibration">Run Calibration</button>
+            <button id="export-results" disabled>Export Results</button>
+            <button id="close-calibration">Close</button>
+        </div>
+    </div>
+
+    <!-- Update the FIR window div -->
+    <div id="fir-window" style="display: none; resize: both; overflow: auto;">
+        <h2>FIR Filter Generation</h2>
+        <div class="fir-table-container">
+            <table id="fir-table">
+                <thead>
+                    <tr>
+                        <th>Station</th>
+                        <th>Coil Name</th>
+                        <th>Base Frequency (Hz)</th>
+                        <th>Sample Rate</th>
+                        <th>Coil Channel</th>
+                    </tr>
+                </thead>
+                <tbody id="fir-items">
+                </tbody>
+            </table>
+        </div>
+        <div class="fir-controls">
+            <div class="progress-bar-container">
+                <div id="fir-progress-bar"></div>
+            </div>
+            <div id="fir-status"></div>
+            <button id="import-from-config-fir">Import From Config</button>
+            <button id="calculate-fir">Calculate FIR</button>
+            <button id="close-fir">Close</button>
+        </div>
+    </div>
+
+    <script src="renderer.js"></script>
+</body>
+</html> 

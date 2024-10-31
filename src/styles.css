@@ -1,0 +1,609 @@
+:root {
+    --primary-color: #166534;      /* Dark green */
+    --primary-hover: #15803d;      /* Medium green */
+    --bg-color: #f8fafc;           /* Light off-white background */
+    --border-color: #e2e8f0;
+    --text-primary: #1e293b;
+    --text-secondary: #64748b;
+    --shadow: 0 2px 4px rgba(0,0,0,0.05);
+    --button-color: #15803d;
+    --button-hover: #166534;
+    --container-bg: #f5f5f5;       /* Light grey for containers */
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    height: 100vh;
+    overflow: hidden;
+    background-color: var(--bg-color);
+}
+
+#app {
+    display: flex;
+    height: 100vh;
+}
+
+#left-container {
+    position: relative;
+    min-width: 200px;
+    width: 300px;
+    max-width: 800px;
+    background: var(--container-bg);
+    display: flex;
+    flex-direction: column;
+    border-right: 1px solid var(--border-color);
+    box-shadow: 2px 0 5px rgba(0,0,0,0.05);
+    flex-shrink: 0;
+    height: 100%;
+    transition: none;
+}
+
+#left-container-resizer {
+    width: 8px;
+    height: 100%;
+    cursor: col-resize;
+    background: transparent;
+    position: relative;
+    flex-shrink: 0;
+    z-index: 10;
+}
+
+#left-container-resizer:hover,
+#left-container-resizer.active {
+    background: var(--button-color);
+}
+
+#right-container {
+    flex: 1;
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    background: var(--bg-color);
+}
+
+#plot-container {
+    flex: 1;
+    padding: 16px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+}
+
+.plot {
+    flex: 1;
+    min-height: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--container-bg);
+    border: 1px solid #e9ecef;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    transition: box-shadow 0.2s ease;
+}
+
+.plot:hover {
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+#left-container h1 {
+    margin: 0;
+    padding: 0;
+    font-size: 24px;
+    font-weight: 600;
+    color: #1a1a1a;
+    font-family: 'Segoe UI', 'Arial', sans-serif;
+    letter-spacing: 0.5px;
+    text-align: left;
+    border: none;
+}
+
+#item-list {
+    flex: 1;
+    overflow-y: auto;
+    padding: 8px;
+}
+
+.top-buttons {
+    display: flex;
+    gap: 8px;
+    padding: 12px;
+    background: #f8f9fa;
+    border-bottom: 1px solid #e9ecef;
+    justify-content: center;
+}
+
+.button-container {
+    padding: 12px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    background: #f8f9fa;
+    border-top: 1px solid #e9ecef;
+}
+
+button {
+    background: var(--button-color);
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    cursor: pointer;
+    border-radius: 6px;
+    text-transform: uppercase;
+    font-weight: 500;
+    font-size: 12px;
+    letter-spacing: 0.5px;
+    transition: all 0.2s ease;
+    font-family: 'Roboto', 'Segoe UI', sans-serif;
+}
+
+button:hover {
+    background: var(--button-hover);
+    transform: translateY(-1px);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+button:disabled {
+    background: #cbd5e1;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.file-item {
+    display: flex;
+    align-items: center;
+    padding: 8px;
+    border-radius: 4px;
+    transition: all 0.2s ease;
+    color: var(--text-primary);
+    font-family: 'SF Mono', 'Consolas', 'Monaco', monospace;
+    font-size: 13px;
+}
+
+.file-item input[type="checkbox"] {
+    margin-right: 12px;
+    width: 16px;
+    height: 16px;
+    border-radius: 4px;
+    border: 2px solid var(--button-color);
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.file-item label {
+    cursor: pointer;
+    color: var(--text-primary);
+    font-size: 13px;
+    font-family: inherit;
+    flex: 1;
+}
+
+.file-item:hover {
+    background: #f8f9fa;
+}
+
+/* Calibration Window Styles */
+#calibration-window {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: var(--container-bg);
+    border: 1px solid #e9ecef;
+    border-radius: 8px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+    width: 80%;
+    max-width: 1200px;
+    max-height: 80vh;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    z-index: 1000;
+}
+
+.calibration-table-container {
+    flex: 1;
+    overflow-y: auto;
+    margin: 20px 0;
+    min-height: 0;
+}
+
+#calibration-table {
+    width: 100%;
+    border-collapse: collapse;
+    border-radius: 6px;
+    overflow: hidden;
+}
+
+#calibration-table thead {
+    position: sticky;
+    top: 0;
+    background: #f1f5f9;
+    z-index: 1;
+}
+
+#calibration-table th,
+#calibration-table td {
+    padding: 12px 16px;
+    border: 1px solid #e9ecef;
+    text-align: left;
+    font-family: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
+}
+
+.calibration-controls {
+    display: flex;
+    gap: 10px;
+    padding: 20px 0 0 0;
+    border-top: 1px solid #e9ecef;
+    align-items: center;
+}
+
+.progress-bar-container {
+    flex: 1;
+    height: 20px;
+    background: #f1f5f9;
+    border-radius: 12px;
+    overflow: hidden;
+    padding: 2px;
+}
+
+#calibration-progress-bar {
+    width: 0%;
+    height: 100%;
+    background: var(--button-color);
+    transition: width 0.3s ease;
+    border-radius: 10px;
+}
+
+#calibration-status {
+    min-width: 150px;
+    color: #64748b;
+}
+
+/* Make sure the app container takes full height */
+#app {
+    display: flex;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+}
+
+/* Update button styles in calibration window */
+.calibration-controls button {
+    flex-shrink: 0;
+    min-width: 120px;
+}
+
+.directory-up {
+    color: var(--text-secondary);
+    padding: 8px 12px;
+    cursor: pointer;
+    border-bottom: 1px solid var(--border-color);
+    margin-bottom: 8px;
+    font-family: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
+    font-size: 13px;
+    display: flex;
+    align-items: center;
+    transition: background-color 0.2s ease;
+    border-radius: 6px;
+    background: #f1f5f9;
+    margin: 4px 0;
+}
+
+.directory-up:hover {
+    background: #e2e8f0;
+}
+
+.directory-up::before {
+    content: none;
+}
+
+/* Ensure proper resizing behavior */
+.resizing {
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+body.resizing {
+    cursor: col-resize !important;
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+body.resizing * {
+    cursor: col-resize !important;
+}
+
+/* Add FIR Window Styles */
+#fir-window {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: var(--container-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+    width: 80%;
+    max-width: 1200px;
+    max-height: 80vh;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    z-index: 1000;
+}
+
+.fir-table-container {
+    flex: 1;
+    overflow-y: auto;
+    margin: 20px 0;
+    min-height: 0;
+}
+
+#fir-table {
+    width: 100%;
+    border-collapse: collapse;
+    border-radius: 6px;
+    overflow: hidden;
+}
+
+#fir-table th,
+#fir-table td {
+    padding: 12px 16px;
+    border: 1px solid var(--border-color);
+    text-align: left;
+    font-family: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
+}
+
+#fir-table thead {
+    position: sticky;
+    top: 0;
+    background: #f1f5f9;
+    z-index: 1;
+}
+
+.fir-controls {
+    display: flex;
+    gap: 10px;
+    padding: 20px 0 0 0;
+    border-top: 1px solid var(--border-color);
+    align-items: center;
+}
+
+#fir-status {
+    flex: 1;
+    color: var(--text-secondary);
+}
+
+/* Update FIR Window Styles */
+#fir-progress-bar {
+    width: 0%;
+    height: 100%;
+    background: #14b8a6;
+    transition: width 0.3s ease;
+}
+
+/* Update header styles */
+.header {
+    display: flex;
+    align-items: center;
+    padding: 16px 20px;
+    border-bottom: 1px solid var(--border-color);
+    background: var(--container-bg);
+}
+
+.header h1 {
+    color: var(--text-primary) !important;
+    font-family: 'Segoe UI', -apple-system, sans-serif !important;
+    font-weight: 600 !important;
+    letter-spacing: 0.5px !important;
+}
+
+.header-icon {
+    width: 24px;
+    height: 24px;
+    margin-right: 12px;
+}
+
+/* Add these styles for the custom titlebar */
+.titlebar {
+    height: 30px;
+    background: #166534;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    -webkit-app-region: drag;
+    user-select: none;
+}
+
+.window-controls {
+    display: flex;
+    -webkit-app-region: no-drag;
+}
+
+.window-controls button {
+    width: 46px;
+    height: 30px;
+    border: none;
+    background: transparent;
+    color: white;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.2s;
+}
+
+.window-controls button:hover {
+    background: rgba(255,255,255,0.1);
+}
+
+.close-button:hover {
+    background: #e81123 !important;
+}
+
+/* Update app container to account for titlebar */
+#app {
+    height: calc(100vh - 30px);
+    margin-top: 30px;
+}
+
+/* Update left container to remove duplicate header */
+#left-container .header {
+    border-radius: 0;
+    background: white;
+}
+
+#left-container h1 {
+    color: var(--text-primary) !important;
+}
+
+/* Update file tree styling */
+.file-item {
+    font-family: 'Segoe UI', -apple-system, sans-serif;
+    font-size: 13px;
+    padding: 10px 12px;
+    border-radius: 6px;
+    margin: 2px 0;
+    transition: all 0.2s ease;
+    color: var(--text-primary);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.file-item label {
+    font-weight: 500;
+}
+
+/* Update folder icon */
+.file-item label[for*=".bin"]::before {
+    content: "📄";  /* Document icon for .bin files */
+    margin-right: 8px;
+    font-size: 14px;
+}
+
+.file-item label:not([for*=".bin"])::before {
+    content: "📂";  /* Folder icon */
+    margin-right: 8px;
+    font-size: 14px;
+}
+
+/* Update directory up styling */
+.directory-up {
+    font-family: 'Segoe UI', -apple-system, sans-serif;
+    color: var(--text-secondary);
+    padding: 10px 12px;
+    margin: 4px 0;
+    border-radius: 6px;
+    background: #f1f5f9;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.directory-up::before {
+    content: "📂";
+    font-size: 14px;
+}
+
+/* Update container backgrounds */
+#left-container {
+    background: var(--container-bg);
+}
+
+#right-container {
+    background: var(--bg-color);
+}
+
+.plot {
+    background: var(--container-bg);
+}
+
+/* Update the header styling */
+.header {
+    background: #166534;
+    padding: 16px 20px;
+}
+
+.header h1 {
+    font-family: 'Segoe UI', -apple-system, sans-serif !important;
+    font-weight: 600 !important;
+    letter-spacing: 0.5px !important;
+}
+
+/* Update titlebar */
+.titlebar {
+    background: #166534;
+}
+
+/* Remove the titlebar styles since we're using the default frame */
+.titlebar {
+    display: none;
+}
+
+/* Update app container to use full height */
+#app {
+    height: 100vh;
+    margin-top: 0;  /* Remove the margin we added for custom titlebar */
+}
+
+/* Update file tree styling to prevent double icons */
+.file-item {
+    font-family: 'Segoe UI', -apple-system, sans-serif;
+    font-size: 13px;
+    padding: 10px 12px;
+    border-radius: 6px;
+    margin: 2px 0;
+    transition: all 0.2s ease;
+    color: var(--text-primary);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.file-item label {
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* Remove the previous icon styles and update with new ones */
+.file-item label::before {
+    content: none;  /* Remove the previous icon */
+}
+
+/* Add single icon for different file types */
+.file-item[data-type="folder"] label::before {
+    content: "📂";
+    font-size: 14px;
+}
+
+.file-item[data-type="file"] label::before {
+    content: "📄";
+    font-size: 14px;
+}
+
+/* Update directory up styling */
+.directory-up {
+    font-family: 'Segoe UI', -apple-system, sans-serif;
+    color: var(--text-secondary);
+    padding: 10px 12px;
+    margin: 4px 0;
+    border-radius: 6px;
+    background: #f1f5f9;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.directory-up::before {
+    content: "📂";
+    font-size: 14px;
+}
